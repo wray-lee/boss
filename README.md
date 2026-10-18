@@ -2,7 +2,7 @@
 
 # 🏢 Boss
 
-### **Hierarchical Multi-Agent Delegation for Claude Code**
+### Hierarchical Multi-Agent Delegation for Claude Code
 
 **Near 2-Level (2L) Quality at a Fraction of the Token Cost**
 
@@ -39,9 +39,9 @@
 
 ## 💡 The Core Value: Why 3-Tier beats 2-Tier in Cost-Efficiency
 
-> **"Our 3-tier architecture might not beat an all-flagship 2-level setup in raw peak firepower, but it slashes your token bill by 60–80% while reaching remarkably close delivery quality."**
+> 💡 **Core Trade-off**: *"Our 3-tier architecture might not beat an all-flagship 2-level setup in raw peak firepower, but it slashes your token bill by 60–80% while reaching remarkably close delivery quality."*
 
-In typical multi-agent frameworks, **2-Level architectures (Boss directly dispatching a fleet of flagship models)** hit two painful walls:
+In typical multi-agent frameworks, **2-Level architectures** (Boss directly dispatching a fleet of flagship models) hit two painful walls:
 1. **Astronomical Token Bills**: Running Claude Opus or Sonnet at maximum effort just to grep code, read files, or format boilerplate is tremendous waste.
 2. **Rate Limit Blowouts (429s)**: Spawning multiple top-tier models simultaneously consumes interactive quota in minutes, triggering long cooldowns.
 
