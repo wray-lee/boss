@@ -50,6 +50,7 @@ The user picks the mode, e.g. `/boss subagent <task>`. Without one, use workflow
 3. **Final gate.** Verify the manager's report yourself, cheaply and directly:
    - spot-check the claimed evidence (git log/diff, test result lines, CI status, files);
    - re-run the decisive check if it is quick;
+   - for compiled projects, confirm the shipping build passes, not only the test build. Zig compiles lazily, so `zig build test` can pass while `zig build -Doptimize=ReleaseSmall` fails;
    - confirm that nothing outside the scope was touched, especially `~/.claude` and secrets;
    - confirm that the repo rules were followed (CLAUDE.md, commit/push rules).
 
