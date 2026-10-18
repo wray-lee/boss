@@ -9,6 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blueviolet?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDJMMyA3djEwbDkgNSA5LTVWN2wtOS01eiIvPjwvc3ZnPg==)](https://docs.anthropic.com/en/docs/claude-code)
 [![Token 节约](https://img.shields.io/badge/Token_%E8%8A%82%E7%BA%A6-%E9%AB%98%E8%BE%BE_70%25-success)]()
+[![通过 bunx 安装](https://img.shields.io/badge/%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F-bunx_|_npx-success?logo=bun)](https://bun.sh)
 [![Platform](https://img.shields.io/badge/Platform-Win%20%7C%20Mac%20%7C%20Linux-brightgreen)]()
 
 <br/>
@@ -67,26 +68,25 @@
 
 ## 🚀 快速上手
 
-### 1. 干净安装（零污染、零冗余）
+### 1. 干净安装（支持 `bunx` 或 `npx` 单命令部署）
 
-仅将运行时必需的 5 个文件部署至 `~/.claude/skills/boss`，杜绝把 `.git`、文档与 SVG 图片全塞进配置目录造成目录污染：
+直接将所需运行时文件部署至 `~/.claude/skills/boss`，杜绝把 `.git`、文档与 SVG 图片全塞进配置目录造成目录污染：
 
-**macOS / Linux / Git Bash（推荐一行命令）：**
+**使用 `bunx`（推荐，极致快速）：**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/wray-lee/boss/master/install.sh | bash
+bunx github:wray-lee/boss
 ```
 
-**Windows (PowerShell)：**
-```powershell
-irm https://raw.githubusercontent.com/wray-lee/boss/master/install.ps1 | iex
+**或者使用 `npx`：**
+```bash
+npx github:wray-lee/boss
 ```
 
 <details>
-<summary><b>或克隆本仓库通过 Python 本地安装</b></summary>
+<summary><b>自定义目标路径选项</b></summary>
 
 ```bash
-git clone https://github.com/wray-lee/boss.git
-cd boss && python install.py
+bunx github:wray-lee/boss --path /你的自定义路径/skills/boss
 ```
 </details>
 
@@ -160,6 +160,9 @@ boss/
 ├── boss.workflow.js      # Workflow 引擎：DAG 调度器、并发槽与复审轮询
 ├── sync_agents.py        # 从 boss.json 生成 ~/.claude/agents/boss-*.md
 ├── strip_agent_name.py   # PreToolUse 钩子：避免经理生成具名信箱代理导致卡住
+├── install.js            # bunx / npx 跨平台执行的干净安装器
+├── package.json          # CLI 执行入口配置
+├── agents/               # 开箱即用的预构建智能体模板
 ├── LICENSE               # MIT 开源许可证
 ├── assets/               # 架构与工作流生命周期矢量 SVG 高清图
 ├── README.md             # 英文文档 (English)

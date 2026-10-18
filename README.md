@@ -9,6 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blueviolet?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDJMMyA3djEwbDkgNSA5LTVWN2wtOS01eiIvPjwvc3ZnPg==)](https://docs.anthropic.com/en/docs/claude-code)
 [![Token Savings](https://img.shields.io/badge/Token_Savings-Up_to_70%25-success)]()
+[![Install with bunx](https://img.shields.io/badge/Install_with-bunx_|_npx-success?logo=bun)](https://bun.sh)
 [![Platform](https://img.shields.io/badge/Platform-Win%20%7C%20Mac%20%7C%20Linux-brightgreen)]()
 
 <br/>
@@ -67,26 +68,25 @@ In typical multi-agent frameworks, **2-Level architectures** (Boss directly disp
 
 ## 🚀 Quick Start
 
-### 1. Clean Installation (Zero Bloat)
+### 1. Clean Installation (via `bunx` or `npx`)
 
-Install only the essential runtime files into `~/.claude/skills/boss` (without polluting your config folder with `.git`, documentation, or images):
+Install directly into `~/.claude/skills/boss` with a single command — zero bloat, no `.git` folder or docs cluttering your skills directory:
 
-**macOS / Linux / Git Bash (Recommended One-Liner):**
+**Using `bunx` (Recommended):**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/wray-lee/boss/master/install.sh | bash
+bunx github:wray-lee/boss
 ```
 
-**Windows (PowerShell):**
-```powershell
-irm https://raw.githubusercontent.com/wray-lee/boss/master/install.ps1 | iex
+**Or using `npx`:**
+```bash
+npx github:wray-lee/boss
 ```
 
 <details>
-<summary><b>Or install locally via Python / Git</b></summary>
+<summary><b>Custom target path option</b></summary>
 
 ```bash
-git clone https://github.com/wray-lee/boss.git
-cd boss && python install.py
+bunx github:wray-lee/boss --path /custom/path/to/skills/boss
 ```
 </details>
 
@@ -160,6 +160,9 @@ boss/
 ├── boss.workflow.js      # Workflow mode: DAG runner, plan-execute-review loop
 ├── sync_agents.py        # Generates ~/.claude/agents/boss-*.md from boss.json
 ├── strip_agent_name.py   # PreToolUse hook preventing named agent stalls
+├── install.js            # Clean installer executed by bunx / npx
+├── package.json          # CLI executable definition for bunx / npx
+├── agents/               # Pre-built agent templates for out-of-the-box setup
 ├── LICENSE               # MIT License
 ├── assets/               # Architecture and workflow SVG diagrams
 ├── README.md             # English documentation

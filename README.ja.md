@@ -9,6 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blueviolet?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDJMMyA3djEwbDkgNSA5LTVWN2wtOS01eiIvPjwvc3ZnPg==)](https://docs.anthropic.com/en/docs/claude-code)
 [![Token 削減](https://img.shields.io/badge/Token_%E5%89%8A%E6%B8%9B-%E6%9C%80%E5%A4%A7_70%25-success)]()
+[![bunx でインストール](https://img.shields.io/badge/%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB-bunx_|_npx-success?logo=bun)](https://bun.sh)
 [![Platform](https://img.shields.io/badge/Platform-Win%20%7C%20Mac%20%7C%20Linux-brightgreen)]()
 
 <br/>
@@ -67,26 +68,25 @@
 
 ## 🚀 クイックスタート
 
-### 1. クリーンインストール（環境汚染ゼロ）
+### 1. クリーンインストール（`bunx` または `npx`）
 
-実行に必要な5つのファイルのみを `~/.claude/skills/boss` に配置し、`.git` やドキュメント、SVG画像などによる設定ディレクトリの散らかりを完全に防ぎます：
+実行に必要なファイルのみを `~/.claude/skills/boss` に配置し、`.git` や画像ファイルでスキルフォルダを汚すことなく一行でインストールします：
 
-**macOS / Linux / Git Bash（推奨ワンライナー）：**
+**`bunx` を使用する場合（推奨・超高速）：**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/wray-lee/boss/master/install.sh | bash
+bunx github:wray-lee/boss
 ```
 
-**Windows (PowerShell)：**
-```powershell
-irm https://raw.githubusercontent.com/wray-lee/boss/master/install.ps1 | iex
+**または `npx` を使用する場合：**
+```bash
+npx github:wray-lee/boss
 ```
 
 <details>
-<summary><b>またはリポジトリをクローンしてPythonでローカルインストール</b></summary>
+<summary><b>カスタムパスの指定</b></summary>
 
 ```bash
-git clone https://github.com/wray-lee/boss.git
-cd boss && python install.py
+bunx github:wray-lee/boss --path /任意のパス/skills/boss
 ```
 </details>
 
@@ -156,10 +156,13 @@ python -I ~/.claude/skills/boss/sync_agents.py
 ```
 boss/
 ├── SKILL.md              # スキル定義（Bossメインセッションの指示書）
-├── boss.json             # コア設定：モデル、ティア、推論深度、同時実行数
+├── boss.json             # コア設定：モデル、ティア、推论深度、同時実行数
 ├── boss.workflow.js      # ワークフロー実行エンジン：DAGスケジューラ
 ├── sync_agents.py        # boss.json から ~/.claude/agents/boss-*.md を自動生成
 ├── strip_agent_name.py   # PreToolUseフック：サブエージェント停止を防ぐ
+├── install.js            # bunx / npx 実行用クリーンインストーラー
+├── package.json          # パッケージ定義
+├── agents/               # プリセット済みエージェントテンプレート
 ├── LICENSE               # MIT ライセンス
 ├── assets/               # アーキテクチャおよびライフサイクルの高解像度SVG
 ├── README.md             # 英語ドキュメント (English)
