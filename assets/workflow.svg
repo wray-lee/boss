@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-grad-wf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#080c14" />
+    </linearGradient>
+    <linearGradient id="card-grad-wf" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Connectors -->
+    <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="rework-grad" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#eab308" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="glow-phase-1" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#6366f1" flood-opacity="0.3" />
+    </filter>
+    <filter id="glow-phase-2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0284c7" flood-opacity="0.3" />
+    </filter>
+    <filter id="glow-phase-3" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#10b981" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <style>
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif; }
+    .title-wf { font-weight: 700; fill: #ffffff; font-size: 14px; }
+    .desc-wf { font-weight: 400; fill: #94a3b8; font-size: 11px; }
+    .badge-wf { font-weight: 600; font-size: 10px; }
+    .phase-num { font-weight: 800; font-size: 12px; fill: #38bdf8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="900" height="460" rx="16" fill="url(#bg-grad-wf)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Flow Arrows connecting columns -->
+  <!-- Phase 1 -> Phase 2 -->
+  <path d="M 270 215 L 320 215" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <!-- Phase 2 -> Phase 3 -->
+  <path d="M 580 215 L 630 215" fill="none" stroke="#10b981" stroke-width="2" />
+
+  <!-- Rework Loop (Review -> Plan/Execute) -->
+  <path d="M 745 285 L 745 385 Q 745 400 730 400 L 465 400 Q 450 400 450 385 L 450 325"
+        fill="none" stroke="url(#rework-grad)" stroke-width="2" stroke-dasharray="5 5" />
+  <rect x="545" y="388" width="105" height="22" rx="11" fill="#450a0a" stroke="#f43f5e" stroke-width="1" />
+  <text x="597" y="403" class="font-sans badge-wf" fill="#fca5a5" text-anchor="middle">↻ Auto-Rework Loop</text>
+
+  <!-- ==================== COLUMN 1: BRIEF & PLAN ==================== -->
+  <g transform="translate(40, 40)">
+    <!-- Phase Header -->
+    <text x="0" y="20" class="font-sans phase-num">PHASE 1</text>
+    <text x="0" y="42" class="font-sans title-wf" font-size="18">Brief &amp; DAG Plan</text>
+    <text x="0" y="60" class="font-sans desc-wf">Main session brief → Manager planning</text>
+
+    <!-- Step 1 Card: Boss Brief -->
+    <g transform="translate(0, 80)" filter="url(#glow-phase-1)">
+      <rect width="230" height="75" rx="10" fill="url(#card-grad-wf)" stroke="#6366f1" stroke-width="1.5" />
+      <text x="14" y="26" class="font-sans title-wf">1. Boss Briefs Goal</text>
+      <text x="14" y="44" class="font-sans desc-wf">Hands off goal verbatim</text>
+      <text x="14" y="60" class="font-sans desc-wf" fill="#818cf8">Context, constraints, acceptance</text>
+    </g>
+
+    <!-- Connector -->
+    <line x1="115" y1="155" x2="115" y2="185" stroke="#6366f1" stroke-width="2" stroke-dasharray="3 3" />
+
+    <!-- Step 2 Card: Manager DAG Planning -->
+    <g transform="translate(0, 185)" filter="url(#glow-phase-1)">
+      <rect width="230" height="100" rx="10" fill="url(#card-grad-wf)" stroke="#818cf8" stroke-width="1.5" />
+      <text x="14" y="26" class="font-sans title-wf">2. Manager Inspects &amp; Plans</text>
+      <text x="14" y="44" class="font-sans desc-wf">Read-only code inspection</text>
+      <text x="14" y="62" class="font-sans desc-wf">Breaks into task DAG + depends_on</text>
+      <rect x="14" y="72" width="135" height="18" rx="9" fill="#1e1b4b" stroke="#818cf8" stroke-width="0.8" />
+      <text x="81" y="85" class="font-sans badge-wf" fill="#c7d2fe" text-anchor="middle">Assigns Cheapest Tier</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 2: DAG EXECUTION ==================== -->
+  <g transform="translate(330, 40)">
+    <!-- Phase Header -->
+    <text x="0" y="20" class="font-sans phase-num">PHASE 2</text>
+    <text x="0" y="42" class="font-sans title-wf" font-size="18">Parallel DAG Execution</text>
+    <text x="0" y="60" class="font-sans desc-wf">Per-tier concurrency limits enforced</text>
+
+    <!-- Execution Container Box -->
+    <g transform="translate(0, 80)" filter="url(#glow-phase-2)">
+      <rect width="250" height="240" rx="12" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5" />
+
+      <!-- Top subtasks (Parallel) -->
+      <g transform="translate(15, 20)">
+        <rect width="105" height="60" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.2" />
+        <text x="10" y="22" class="font-sans title-wf" font-size="12">Task A</text>
+        <text x="10" y="38" class="font-sans desc-wf" font-size="10">⚡ Fast (Grep)</text>
+        <rect x="10" y="44" width="45" height="12" rx="6" fill="#064e3b" />
+        <text x="32" y="53" class="font-sans badge-wf" font-size="8" fill="#6ee7b7" text-anchor="middle">Slot #1</text>
+      </g>
+
+      <g transform="translate(130, 20)">
+        <rect width="105" height="60" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.2" />
+        <text x="10" y="22" class="font-sans title-wf" font-size="12">Task B</text>
+        <text x="10" y="38" class="font-sans desc-wf" font-size="10">⚡ Fast (Edit)</text>
+        <rect x="10" y="44" width="45" height="12" rx="6" fill="#064e3b" />
+        <text x="32" y="53" class="font-sans badge-wf" font-size="8" fill="#6ee7b7" text-anchor="middle">Slot #2</text>
+      </g>
+
+      <!-- Dependency lines down -->
+      <path d="M 67 80 L 67 115 Q 67 125 80 125 L 125 125" fill="none" stroke="#64748b" stroke-width="1.5" />
+      <path d="M 182 80 L 182 115 Q 182 125 170 125 L 125 125" fill="none" stroke="#64748b" stroke-width="1.5" />
+      <line x1="125" y1="125" x2="125" y2="145" stroke="#38bdf8" stroke-width="2" />
+
+      <!-- Dependent task -->
+      <g transform="translate(20, 145)">
+        <rect width="210" height="70" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="1.2" />
+        <text x="12" y="24" class="font-sans title-wf" font-size="13">Task C (depends_on: A, B)</text>
+        <text x="12" y="42" class="font-sans desc-wf">🧠 Hard Tier (Flagship Model)</text>
+        <text x="12" y="58" class="font-sans desc-wf" fill="#fda4af">Runs only after A &amp; B succeed</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 3: REVIEW & GATE ==================== -->
+  <g transform="translate(630, 40)">
+    <!-- Phase Header -->
+    <text x="0" y="20" class="font-sans phase-num">PHASE 3</text>
+    <text x="0" y="42" class="font-sans title-wf" font-size="18">Review &amp; Final Gate</text>
+    <text x="0" y="60" class="font-sans desc-wf">Strict verification &amp; delivery</text>
+
+    <!-- Manager Review Step -->
+    <g transform="translate(0, 80)" filter="url(#glow-phase-3)">
+      <rect width="230" height="95" rx="10" fill="url(#card-grad-wf)" stroke="#10b981" stroke-width="1.5" />
+      <text x="14" y="26" class="font-sans title-wf">3. Manager Code Review</text>
+      <text x="14" y="44" class="font-sans desc-wf">Checks git log, diff &amp; test output</text>
+      <text x="14" y="60" class="font-sans desc-wf">Re-runs quick validation checks</text>
+
+      <rect x="14" y="68" width="95" height="18" rx="9" fill="#064e3b" stroke="#10b981" stroke-width="0.8" />
+      <text x="61" y="81" class="font-sans badge-wf" fill="#a7f3d0" text-anchor="middle">verdict: done?</text>
+    </g>
+
+    <!-- Connector down -->
+    <line x1="115" y1="175" x2="115" y2="205" stroke="#10b981" stroke-width="2" />
+
+    <!-- Boss Final Gate -->
+    <g transform="translate(0, 205)" filter="url(#glow-phase-3)">
+      <rect width="230" height="95" rx="10" fill="url(#card-grad-wf)" stroke="#6366f1" stroke-width="1.8" />
+      <text x="14" y="26" class="font-sans title-wf">4. Boss Final Gate</text>
+      <text x="14" y="44" class="font-sans desc-wf">Verifies decisive evidence quickly</text>
+      <text x="14" y="62" class="font-sans desc-wf" fill="#a5b4fc">Delivers final report to human</text>
+
+      <rect x="14" y="70" width="105" height="18" rx="9" fill="#312e81" stroke="#818cf8" stroke-width="0.8" />
+      <text x="66" y="83" class="font-sans badge-wf" fill="#e0e7ff" text-anchor="middle">✔ Delivered to User</text>
+    </g>
+  </g>
+</svg>

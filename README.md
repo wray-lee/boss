@@ -17,21 +17,9 @@
 
 <br/>
 
-```
-                    ┌─────────┐
-                    │  👔 Boss │ ← You (main session) — final quality gate
-                    └────┬────┘
-                         │ brief
-                    ┌────▼────┐
-                    │📋Manager│ ← Medium model (GLM/Sonnet): plans & reviews
-                    └────┬────┘
-        ┌────────────────┼────────────────┐
-        │ 80% Workload   │ 15% Workload   │ 5% Hard Stuff
-   ┌────▼───┐       ┌────▼───┐       ┌────▼────┐
-   │⚡ Fast  │       │🔧 Mid  │       │🧠 Hard  │ ← Tiered employee models
-   │(cheap) │       │(bal.)  │       │(top)    │
-   └────────┘       └────────┘       └─────────┘
-```
+<p align="center">
+  <img src="assets/architecture.svg" alt="Boss 3-Tier Multi-Agent Architecture" width="100%" />
+</p>
 
 </div>
 
@@ -158,6 +146,7 @@ boss/
 ├── sync_agents.py        # Generates ~/.claude/agents/boss-*.md from boss.json
 ├── strip_agent_name.py   # PreToolUse hook preventing named agent stalls
 ├── LICENSE               # MIT License
+├── assets/               # Architecture and workflow SVG diagrams
 ├── README.md             # English documentation
 ├── README.zh-CN.md       # 简体中文文档
 └── README.ja.md          # 日本語ドキュメント
@@ -167,34 +156,9 @@ boss/
 
 ## 🔧 Workflow Lifecycle
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                     WORKFLOW MODE                        │
-│                                                          │
-│  Boss (You) ──── Brief ────▶ boss.workflow.js            │
-│                                    │                     │
-│                             ┌──────▼──────┐              │
-│                             │   Manager   │              │
-│                             │  (Planning) │              │
-│                             └──────┬──────┘              │
-│                                    │ tasks + DAG         │
-│                        ┌───────────┴───────────┐         │
-│                        ▼                       ▼         │
-│                  [Task A (Fast)]         [Task B (Fast)] │
-│                        │                       │         │
-│                        └───────────┬───────────┘         │
-│                                    ▼ depends_on          │
-│                             [Task C (Hard)]              │
-│                                    │                     │
-│                             ┌──────▼──────┐              │
-│                 rework? ───▶│   Manager   │◀─ repo state │
-│                             │  (Reviewer) │              │
-│                             └──────┬──────┘              │
-│                                    │ verdict = done      │
-│                                    ▼                     │
-│                        Final Report ──▶ Boss Gate        │
-└──────────────────────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="assets/workflow.svg" alt="Boss Workflow Lifecycle" width="100%" />
+</p>
 
 ---
 
