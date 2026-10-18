@@ -177,8 +177,12 @@ boss/
 
 ---
 
-## 📝 Notes
+## 📝 Notes & Troubleshooting
 
+- ⚠️ **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` Override Bug**: If you set `"CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL"` (e.g. `"sub[1m]"`) in your Claude Code `settings.json` or environment variables, Claude Code's Workflow engine will **globally force all workflow subagents to use that single model**, overriding the per-tier models configured in `boss.json` and `boss-*.md`.
+  - **Symptom**: Tiered model allocation fails; the manager, advanced tier, and efficient tier all run on the same overridden model.
+  - **Solution**: **Remove or unset `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** from your `settings.json` so that the workflow script can dynamically route tasks to different model tiers.
+  - **Alternative**: If you must keep this setting, run `/boss subagent <task>` instead of default workflow mode — Subagent Mode dispatches via standard `Agent` calls which honor the individual frontmatter `model` of each agent file.
 - **Top-Tier Model Protection**: Keep flagship models (Opus / Fable / Astra) at `maxConcurrent ≤ 3` to avoid triggering Claude Pro 429 limits.
 - **Custom Tiers**: Tier names are completely free-form. Add, rename, or adjust tiers directly in `boss.json`.
 - **PreToolUse Hook**: `strip_agent_name.py` prevents the manager from creating named mailbox agents that fail to return results.

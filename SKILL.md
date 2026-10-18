@@ -64,6 +64,7 @@ The user picks the mode, e.g. `/boss subagent <task>`. Without one, use workflow
 
 ## Notes
 
+- **Settings override caveat**: If `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` is set in `settings.json` or env vars, the Workflow engine forces all workflow subagents to that model, overriding `boss.json` tiers. If workflow model routing fails, remind the user to unset that variable, or use subagent mode instead.
 - Top-tier models (opus / fable / astra) should keep `maxConcurrent <= 3` (global CLAUDE.md rule).
 - Subagents can use the Agent tool but not Workflow. That is why subagent mode dispatches with Agent calls, and why only the boss can start workflow mode.
 - Subagent mode: an Agent call with `name` would turn the employee into a mailbox teammate whose result never returns. The manager's frontmatter hook `strip_agent_name.py` removes `name`/`team_name`. Unnamed employees run in the background, and the manager is resumed automatically when they finish. After changing a frontmatter hook, run `/reload-plugins`.

@@ -177,8 +177,12 @@ boss/
 
 ---
 
-## 📝 注意事項
+## 📝 注意事項・トラブルシューティング
 
+- ⚠️ **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` によるモデル割り当ての無効化バグ**：Claude Code の `settings.json` や環境変数で `"CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL": "xxx"` を設定している場合、Workflow エンジンが**すべてのサブエージェントにその単一モデルを一律で強制適用**してしまいます。その結果、`boss.json` で指定したティア別モデル（Manager の GLM、Advanced の Step5/Opus、Efficient の Sub 等）が上書きされ、階層的ルーティングが無効化されます。
+  - **現象**：Workflow モードにおいてモデルの階層化が反映されず、全タスクが同一モデルで実行される；
+  - **解決策**：`settings.json` から **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` を削除（または環境変数を解除）** してください。これにより、`boss.workflow.js` がティアごとに独立したモデルを正しく配備できるようになります；
+  - **代替策**：どうしてもこの設定を維持する必要がある場合は、Subagent モード（`/boss subagent <タスク>`）をご利用ください。通常の `Agent` 呼び出しにより、各エージェント定義ファイルの `model` が正しく尊重されます。
 - **最高峰モデルの並列数**：`advanced` ティアに Opus / Fable などのフラグシップモデルを割り当てる場合、`maxConcurrent ≤ 3` に保つことで Claude Pro の 429 エラーを防ぎます。
 - **カスタムティア**：ティア名は自由に変更可能です。`boss.json` で自由に追加・削除でき、同期スクリプトが自動生成します。
 - **フックの役割**：`strip_agent_name.py` は、Managerが名前付きエージェントを作成して待機状態に陥るのを防ぎます。

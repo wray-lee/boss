@@ -177,8 +177,12 @@ boss/
 
 ---
 
-## 📝 注意事项
+## 📝 注意事项与避坑指南
 
+- ⚠️ **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` 会导致模型分级失效**：如果在 Claude Code 的 `settings.json` 或环境变量中设置了 `"CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL": "xxx"`，Claude Code 的 Workflow 引擎会**全局强制覆盖所有工作流子代理**，导致 `boss.json` 中配置的分级模型（如经理用 GLM、攻坚员工用 Step5/Opus、机械员工用 Sub）全部失效，所有 Agent 都会被强制使用该单一模型。
+  - **现象**：Workflow 模式下模型分级未生效，所有任务使用了同一个模型；
+  - **解决方案**：**从 `settings.json` 中移除该配置项**（或清空该环境变量），让 `boss.workflow.js` 与各个 Agent 独立控制所属层级的模型分配；
+  - **替代方案**：如果因其他工作流需要必须保留该配置，请使用 Subagent 模式（`/boss subagent <任务>`），Subagent 模式通过标准的 `Agent` 工具调用派发员工，会严格遵循各自定义文件中的 `model` 声明。
 - **顶级模型限并发**：若将 `advanced` 层级配置为 Opus / Fable / Astra 等顶级模型，务必保持 `maxConcurrent ≤ 3`，防止快速消耗交互式配额。
 - **自定义层级**：层级名称完全自定义，你可以在 `boss.json` 中增删层级（如加入 `doc-writer` 等），脚本会自动同步生成。
 - **防止死锁钩子**：`strip_agent_name.py` 自动过滤 `name` 参数，确保后台子代理能正常唤醒经理。
