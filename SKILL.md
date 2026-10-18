@@ -18,8 +18,8 @@ Config: `~/.claude/skills/boss/boss.json` holds model, effort, maxConcurrent and
 ## Changing models, effort or tiers
 
 1. Edit `boss.json`. Tier names are free-form; you can add, remove or rename tiers.
-2. Run `python -I ~/.claude/skills/boss/sync_agents.py`. It regenerates `~/.claude/agents/boss-*.md`.
-3. New or renamed agent files only load after `/reload-plugins` or a session restart. Tell the user if that is needed.
+2. **Auto-sync**: The boss automatically runs `sync_agents.py` in the background if `~/.claude/agents/boss-*.md` are missing or outdated. You can also manually run `python -I ~/.claude/skills/boss/sync_agents.py`.
+3. New or renamed agent files load after `/reload-plugins` or a session restart. Tell the user if that is needed.
 
 ## Modes
 
@@ -34,10 +34,12 @@ The user picks the mode, e.g. `/boss subagent <task>`. Without one, use workflow
 
 ## Steps
 
-1. **Brief.** Collect:
-   - the user's task verbatim;
-   - the context the manager cannot discover itself: decisions already made, constraints, authorizations (push/deploy allowed or not), relevant memory facts;
-   - the acceptance criteria.
+1. **Auto-sync & Brief.**
+   - Ensure agents are present: if `~/.claude/agents/boss-manager.md` is missing, silently run `python -I ~/.claude/skills/boss/sync_agents.py` (or the equivalent path in your skills directory) in the background before dispatching.
+   - Collect:
+     - the user's task verbatim;
+     - the context the manager cannot discover itself: decisions already made, constraints, authorizations (push/deploy allowed or not), relevant memory facts;
+     - the acceptance criteria.
 
    Do not pre-plan the work for the manager.
    - **workflow mode:** read `boss.json`, then call `Workflow({scriptPath: "~/.claude/skills/boss/boss.workflow.js" (absolute path), args: {task, config: <boss.json object>, context}})`. When re-briefing, add `feedback`.

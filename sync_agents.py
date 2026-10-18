@@ -67,20 +67,28 @@ def main() -> None:
     for old in AGENTS_DIR.glob("boss-*.md"):
         old.unlink()
 
-    m = cfg["manager"]
-    (AGENTS_DIR / "boss-manager.md").write_text(
+    # Also mirror into repo's local agents/ directory for out-of-the-box shipping
+    local_agents_dir = SKILL_DIR / "agents"
+    local_agents_dir.mkdir(parents=True, exist_ok=True)
+    for old in local_agents_dir.glob("boss-*.md"):
+        old.unlink()
+
+    manager_content = (
         frontmatter("boss-manager", "Boss skill manager: plans, assigns tiers, reviews, issues rework.", m["model"], m["effort"], STRIP_NAME_HOOK)
-        + MANAGER_BODY.format(config_path=(SKILL_DIR / "boss.json").as_posix()),
-        encoding="utf-8",
+        + MANAGER_BODY.format(config_path=(SKILL_DIR / "boss.json").as_posix())
     )
+    (AGENTS_DIR / "boss-manager.md").write_text(manager_content, encoding="utf-8")
+    (local_agents_dir / "boss-manager.md").write_text(manager_content, encoding="utf-8")
+
     for tier, t in cfg["tiers"].items():
         if any(k in t["model"].lower() for k in TOP_TIER) and t.get("maxConcurrent", 1) > 3:
             print(f"warning: tier {tier} uses a top-tier model with maxConcurrent > 3")
-        (AGENTS_DIR / f"boss-employee-{tier}.md").write_text(
+        emp_content = (
             frontmatter(f"boss-employee-{tier}", f"Boss skill employee ({tier}): {t['description']}", t["model"], t["effort"])
-            + EMPLOYEE_BODY.format(tier=tier),
-            encoding="utf-8",
+            + EMPLOYEE_BODY.format(tier=tier)
         )
+        (AGENTS_DIR / f"boss-employee-{tier}.md").write_text(emp_content, encoding="utf-8")
+        (local_agents_dir / f"boss-employee-{tier}.md").write_text(emp_content, encoding="utf-8")
     print("synced:", ", ".join(["boss-manager"] + [f"boss-employee-{t}" for t in cfg["tiers"]]))
 
 
