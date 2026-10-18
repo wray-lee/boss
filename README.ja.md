@@ -67,21 +67,36 @@
 
 ## 🚀 クイックスタート
 
-### 1. インストール
+### 1. クリーンインストール（環境汚染ゼロ）
 
-Claude Code の skills ディレクトリにクローンします：
+実行に必要な5つのファイルのみを `~/.claude/skills/boss` に配置し、`.git` やドキュメント、SVG画像などによる設定ディレクトリの散らかりを完全に防ぎます：
 
+**macOS / Linux / Git Bash（推奨ワンライナー）：**
 ```bash
-git clone https://github.com/wray-lee/boss.git ~/.claude/skills/boss
+curl -fsSL https://raw.githubusercontent.com/wray-lee/boss/master/install.sh | bash
 ```
 
-Claude Code ターミナルでプラグインをリロードします（またはセッションを再起動）：
+**Windows (PowerShell)：**
+```powershell
+irm https://raw.githubusercontent.com/wray-lee/boss/master/install.ps1 | iex
+```
+
+<details>
+<summary><b>またはリポジトリをクローンしてPythonでローカルインストール</b></summary>
+
+```bash
+git clone https://github.com/wray-lee/boss.git
+cd boss && python install.py
+```
+</details>
+
+インストール完了後、Claude Code ターミナルでプラグインをリロードします（またはセッションを再起動）：
 
 ```
 /reload-plugins
 ```
 
-> 💡 **追加設定不要 / デフォルトで静的自動同期**：手動でPythonスクリプトを実行する必要は **一切ありません**！初回の `/boss` 実行時に、バックグラウンドで自動的にエージェント定義が初期化されます。（明示的に手動生成を行いたい場合は、いつでも `python -I ~/.claude/skills/boss/sync_agents.py` を実行可能です）。
+> 💡 **自動同期**：エージェント定義は自動的に `~/.claude/agents/` に登録されます。将来的に `boss.json` を編集した場合でも、次回の `/boss` 呼び出し時にバックグラウンドで自動同期されます。
 
 ### 2. 実行コマンド
 

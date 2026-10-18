@@ -63,6 +63,7 @@ def frontmatter(name: str, description: str, model: str, effort: str, extra: str
 
 def main() -> None:
     cfg = json.loads((SKILL_DIR / "boss.json").read_text(encoding="utf-8"))
+    m = cfg["manager"]
     AGENTS_DIR.mkdir(parents=True, exist_ok=True)
     for old in AGENTS_DIR.glob("boss-*.md"):
         old.unlink()

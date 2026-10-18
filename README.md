@@ -67,21 +67,36 @@ In typical multi-agent frameworks, **2-Level architectures** (Boss directly disp
 
 ## 🚀 Quick Start
 
-### 1. Installation
+### 1. Clean Installation (Zero Bloat)
 
-Clone this repository into your Claude Code skills directory:
+Install only the essential runtime files into `~/.claude/skills/boss` (without polluting your config folder with `.git`, documentation, or images):
 
+**macOS / Linux / Git Bash (Recommended One-Liner):**
 ```bash
-git clone https://github.com/wray-lee/boss.git ~/.claude/skills/boss
+curl -fsSL https://raw.githubusercontent.com/wray-lee/boss/master/install.sh | bash
 ```
 
-Reload plugins inside Claude Code (or restart session):
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/wray-lee/boss/master/install.ps1 | iex
+```
+
+<details>
+<summary><b>Or install locally via Python / Git</b></summary>
+
+```bash
+git clone https://github.com/wray-lee/boss.git
+cd boss && python install.py
+```
+</details>
+
+Then reload plugins inside Claude Code (or restart your session):
 
 ```
 /reload-plugins
 ```
 
-> 💡 **Zero Setup / Silent Auto-Sync**: You do **not** need to manually run any Python script! On your first `/boss` run, the skill automatically detects and initializes agent definitions in `~/.claude/agents/` silently in the background. (Manual run via `python -I ~/.claude/skills/boss/sync_agents.py` remains available if you prefer explicit setup).
+> 💡 **Silent Auto-Sync**: Agent definitions in `~/.claude/agents/` are registered automatically. If you modify `boss.json` in the future, the skill auto-syncs on your next `/boss` invocation.
 
 ### 2. Usage
 

@@ -67,21 +67,36 @@
 
 ## 🚀 快速上手
 
-### 1. 安装
+### 1. 干净安装（零污染、零冗余）
 
-将仓库克隆至 Claude Code 的 skills 目录：
+仅将运行时必需的 5 个文件部署至 `~/.claude/skills/boss`，杜绝把 `.git`、文档与 SVG 图片全塞进配置目录造成目录污染：
 
+**macOS / Linux / Git Bash（推荐一行命令）：**
 ```bash
-git clone https://github.com/wray-lee/boss.git ~/.claude/skills/boss
+curl -fsSL https://raw.githubusercontent.com/wray-lee/boss/master/install.sh | bash
 ```
 
-在 Claude Code 终端中重载插件（或重启会话）：
+**Windows (PowerShell)：**
+```powershell
+irm https://raw.githubusercontent.com/wray-lee/boss/master/install.ps1 | iex
+```
+
+<details>
+<summary><b>或克隆本仓库通过 Python 本地安装</b></summary>
+
+```bash
+git clone https://github.com/wray-lee/boss.git
+cd boss && python install.py
+```
+</details>
+
+安装完成后，在 Claude Code 终端中重载插件（或重启会话）：
 
 ```
 /reload-plugins
 ```
 
-> 💡 **零额外配置 / 默认静默自动同步**：你 **完全无需** 手动运行任何 Python 脚本！首次运行 `/boss` 时，系统会自动检测并在后台静默完成智能体初始化。修改 `boss.json` 后也会自动在下次调用时自愈同步。（如果你喜欢显式手动初始化，也可以随时执行 `python -I ~/.claude/skills/boss/sync_agents.py`）。
+> 💡 **静默自动同步**：安装脚本已自动将智能体注册到 `~/.claude/agents/`。后续如果修改了 `boss.json`，在下次执行 `/boss` 时系统会自动在后台完成自愈同步，无需操心。
 
 ### 2. 使用命令
 
