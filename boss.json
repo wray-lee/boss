@@ -1,0 +1,29 @@
+{
+  "manager": {
+    "model": "glm[1m]",
+    "effort": "high",
+    "description": "Plans the work, assigns each task to an employee tier, reviews results as the general viewer, and issues rework."
+  },
+  "tiers": {
+    "efficient": {
+      "model": "sub[1m]",
+      "effort": "high",
+      "maxConcurrent": 8,
+      "description": "Cheap and fast. Mechanical edits, searches, log/file reading, formatting, running given commands, simple tests."
+    },
+    "default": {
+      "model": "sub[1m]",
+      "effort": "high",
+      "maxConcurrent": 6,
+      "description": "Normal engineering work. Implementing scoped features and fixes with tests, focused code review, diagnosis with clear leads."
+    },
+    "advanced": {
+      "model": "step5[1m]",
+      "effort": "max",
+      "maxConcurrent": 3,
+      "description": "Hard problems only. Concurrency/locking, security, cross-module design, root causes nobody has found, adversarial verification of risky changes."
+    }
+  },
+  "maxRounds": 5,
+  "notes": "Edit this file, then run: python -I ~/.claude/skills/boss/sync_agents.py. Tier names are free-form; add or rename tiers here and the sync script regenerates ~/.claude/agents/boss-employee-<tier>.md. Keep top-tier models (opus/fable/astra) at maxConcurrent <= 3 (global CLAUDE.md rule)."
+}
